@@ -1,0 +1,384 @@
+{
+  "people": [
+    {
+      "id": "CS21B045",
+      "name": "Ananya Rao",
+      "type": "student",
+      "dept": "Computer Science",
+      "year": "3rd Year",
+      "email": "ananya@college.edu",
+      "faceDescriptor": "SIMULATED",
+      "rfid": "A1:B2:C3:D4",
+      "fingerId": "FP-101",
+      "qrToken": "CLPT-CS21B045-A9B1C2",
+      "createdAt": "2026-10-05T05:07:15.657Z"
+    },
+    {
+      "id": "EC21B012",
+      "name": "Rohan Sharma",
+      "type": "student",
+      "dept": "Electronics & Communication",
+      "year": "3rd Year",
+      "email": "rohan.sharma@college.edu",
+      "faceDescriptor": "SIMULATED",
+      "rfid": "89:AB:CD:EF",
+      "fingerId": "FP-102",
+      "qrToken": "CLPT-EC21B012-K4L5M6",
+      "createdAt": "2026-10-05T05:07:15.657Z"
+    },
+    {
+      "id": "ME22B088",
+      "name": "Priya Nair",
+      "type": "student",
+      "dept": "Mechanical Engineering",
+      "year": "2nd Year",
+      "email": "priya.nair@college.edu",
+      "faceDescriptor": "SIMULATED",
+      "rfid": "12:34:56:78",
+      "fingerId": "FP-103",
+      "qrToken": "CLPT-ME22B088-P7Q8R9",
+      "createdAt": "2026-10-10T05:07:15.657Z"
+    },
+    {
+      "id": "IT20B003",
+      "name": "Karthik Sundaram",
+      "type": "student",
+      "dept": "Information Technology",
+      "year": "4th Year",
+      "email": "karthik.s@college.edu",
+      "faceDescriptor": "SIMULATED",
+      "rfid": "45:67:89:AB",
+      "fingerId": "FP-104",
+      "qrToken": "CLPT-IT20B003-V1W2X3",
+      "createdAt": "2026-09-25T05:07:15.657Z"
+    },
+    {
+      "id": "EMP-1042",
+      "name": "Dr. Vikram Patel",
+      "type": "staff",
+      "dept": "Electronics & Communication",
+      "year": "Associate Professor",
+      "email": "vikram.patel@college.edu",
+      "faceDescriptor": "SIMULATED",
+      "rfid": "E5:F6:07:18",
+      "fingerId": "FP-201",
+      "qrToken": "CLPT-EMP1042-X7Y8Z9",
+      "createdAt": "2026-09-05T05:07:15.657Z"
+    },
+    {
+      "id": "EMP-2089",
+      "name": "Meera Sen",
+      "type": "staff",
+      "dept": "Computer Science",
+      "year": "Lab Superintendent",
+      "email": "meera.sen@college.edu",
+      "faceDescriptor": "SIMULATED",
+      "rfid": "9C:3D:11:FA",
+      "fingerId": "FP-202",
+      "qrToken": "CLPT-EMP2089-T3U4V5",
+      "createdAt": "2026-09-05T05:07:15.657Z"
+    }
+  ],
+  "attendance": [
+    {
+      "_id": "att_seed_ananya_0",
+      "personId": "CS21B045",
+      "personName": "Ananya Rao",
+      "personType": "student",
+      "dept": "Computer Science",
+      "date": "2026-10-31",
+      "time": "08:45:12",
+      "methods": [
+        "Face recognition",
+        "RFID card tap"
+      ],
+      "status": "present",
+      "createdAt": "2026-10-31T08:45:12.000Z"
+    },
+    {
+      "_id": "att_seed_rohan_0",
+      "personId": "EC21B012",
+      "personName": "Rohan Sharma",
+      "personType": "student",
+      "dept": "Electronics & Communication",
+      "date": "2026-10-31",
+      "time": "08:52:30",
+      "methods": [
+        "Face recognition",
+        "Fingerprint"
+      ],
+      "status": "present",
+      "createdAt": "2026-10-31T08:52:30.000Z"
+    },
+    {
+      "_id": "att_seed_priya_0",
+      "personId": "ME22B088",
+      "personName": "Priya Nair",
+      "personType": "student",
+      "dept": "Mechanical Engineering",
+      "date": "2026-10-31",
+      "time": "08:40:05",
+      "methods": [
+        "QR code scan",
+        "OTP"
+      ],
+      "status": "present",
+      "createdAt": "2026-10-31T08:40:05.000Z"
+    },
+    {
+      "_id": "att_seed_vikram_0",
+      "personId": "EMP-1042",
+      "personName": "Dr. Vikram Patel",
+      "personType": "staff",
+      "dept": "Electronics & Communication",
+      "date": "2026-10-31",
+      "time": "08:30:19",
+      "methods": [
+        "RFID card tap"
+      ],
+      "status": "present",
+      "createdAt": "2026-10-31T08:30:19.000Z"
+    },
+    {
+      "_id": "att_seed_meera_0",
+      "personId": "EMP-2089",
+      "personName": "Meera Sen",
+      "personType": "staff",
+      "dept": "Computer Science",
+      "date": "2026-10-31",
+      "time": "08:38:50",
+      "methods": [
+        "Fingerprint"
+      ],
+      "status": "present",
+      "createdAt": "2026-10-31T08:38:50.000Z"
+    },
+    {
+      "_id": "att_seed_ananya_1",
+      "personId": "CS21B045",
+      "personName": "Ananya Rao",
+      "personType": "student",
+      "dept": "Computer Science",
+      "date": "2026-11-01",
+      "time": "08:45:12",
+      "methods": [
+        "Face recognition",
+        "RFID card tap"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-01T08:45:12.000Z"
+    },
+    {
+      "_id": "att_seed_priya_1",
+      "personId": "ME22B088",
+      "personName": "Priya Nair",
+      "personType": "student",
+      "dept": "Mechanical Engineering",
+      "date": "2026-11-01",
+      "time": "08:40:05",
+      "methods": [
+        "QR code scan",
+        "OTP"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-01T08:40:05.000Z"
+    },
+    {
+      "_id": "att_seed_karthik_1",
+      "personId": "IT20B003",
+      "personName": "Karthik Sundaram",
+      "personType": "student",
+      "dept": "Information Technology",
+      "date": "2026-11-01",
+      "time": "09:05:44",
+      "methods": [
+        "Face recognition"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-01T09:05:44.000Z"
+    },
+    {
+      "_id": "att_seed_vikram_1",
+      "personId": "EMP-1042",
+      "personName": "Dr. Vikram Patel",
+      "personType": "staff",
+      "dept": "Electronics & Communication",
+      "date": "2026-11-01",
+      "time": "08:30:19",
+      "methods": [
+        "RFID card tap"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-01T08:30:19.000Z"
+    },
+    {
+      "_id": "att_seed_meera_1",
+      "personId": "EMP-2089",
+      "personName": "Meera Sen",
+      "personType": "staff",
+      "dept": "Computer Science",
+      "date": "2026-11-01",
+      "time": "08:38:50",
+      "methods": [
+        "Fingerprint"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-01T08:38:50.000Z"
+    },
+    {
+      "_id": "att_seed_ananya_2",
+      "personId": "CS21B045",
+      "personName": "Ananya Rao",
+      "personType": "student",
+      "dept": "Computer Science",
+      "date": "2026-11-02",
+      "time": "08:45:12",
+      "methods": [
+        "Face recognition",
+        "RFID card tap"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-02T08:45:12.000Z"
+    },
+    {
+      "_id": "att_seed_rohan_2",
+      "personId": "EC21B012",
+      "personName": "Rohan Sharma",
+      "personType": "student",
+      "dept": "Electronics & Communication",
+      "date": "2026-11-02",
+      "time": "08:52:30",
+      "methods": [
+        "Face recognition",
+        "Fingerprint"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-02T08:52:30.000Z"
+    },
+    {
+      "_id": "att_seed_priya_2",
+      "personId": "ME22B088",
+      "personName": "Priya Nair",
+      "personType": "student",
+      "dept": "Mechanical Engineering",
+      "date": "2026-11-02",
+      "time": "08:40:05",
+      "methods": [
+        "QR code scan",
+        "OTP"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-02T08:40:05.000Z"
+    },
+    {
+      "_id": "att_seed_vikram_2",
+      "personId": "EMP-1042",
+      "personName": "Dr. Vikram Patel",
+      "personType": "staff",
+      "dept": "Electronics & Communication",
+      "date": "2026-11-02",
+      "time": "08:30:19",
+      "methods": [
+        "RFID card tap"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-02T08:30:19.000Z"
+    },
+    {
+      "_id": "att_seed_meera_2",
+      "personId": "EMP-2089",
+      "personName": "Meera Sen",
+      "personType": "staff",
+      "dept": "Computer Science",
+      "date": "2026-11-02",
+      "time": "08:38:50",
+      "methods": [
+        "Fingerprint"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-02T08:38:50.000Z"
+    },
+    {
+      "_id": "att_seed_ananya_3",
+      "personId": "CS21B045",
+      "personName": "Ananya Rao",
+      "personType": "student",
+      "dept": "Computer Science",
+      "date": "2026-11-03",
+      "time": "08:45:12",
+      "methods": [
+        "Face recognition",
+        "RFID card tap"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-03T08:45:12.000Z"
+    },
+    {
+      "_id": "att_seed_rohan_3",
+      "personId": "EC21B012",
+      "personName": "Rohan Sharma",
+      "personType": "student",
+      "dept": "Electronics & Communication",
+      "date": "2026-11-03",
+      "time": "08:52:30",
+      "methods": [
+        "Face recognition",
+        "Fingerprint"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-03T08:52:30.000Z"
+    },
+    {
+      "_id": "att_seed_priya_3",
+      "personId": "ME22B088",
+      "personName": "Priya Nair",
+      "personType": "student",
+      "dept": "Mechanical Engineering",
+      "date": "2026-11-03",
+      "time": "08:40:05",
+      "methods": [
+        "QR code scan",
+        "OTP"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-03T08:40:05.000Z"
+    },
+    {
+      "_id": "att_seed_karthik_3",
+      "personId": "IT20B003",
+      "personName": "Karthik Sundaram",
+      "personType": "student",
+      "dept": "Information Technology",
+      "date": "2026-11-03",
+      "time": "09:05:44",
+      "methods": [
+        "Face recognition"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-03T09:05:44.000Z"
+    },
+    {
+      "_id": "att_seed_vikram_3",
+      "personId": "EMP-1042",
+      "personName": "Dr. Vikram Patel",
+      "personType": "staff",
+      "dept": "Electronics & Communication",
+      "date": "2026-11-03",
+      "time": "08:30:19",
+      "methods": [
+        "RFID card tap"
+      ],
+      "status": "present",
+      "createdAt": "2026-11-03T08:30:19.000Z"
+    }
+  ],
+  "config": {
+    "face": true,
+    "rfid": false,
+    "finger": false,
+    "qr": false,
+    "otp": false,
+    "minDetectionScore": 0.72,
+    "faceMatchThreshold": 0.5
+  }
+}

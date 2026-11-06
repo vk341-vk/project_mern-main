@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EarthPay - International Transaction & Currency System</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <!-- 🌍 3D Earth Background (Unchanged) -->
+  <div class="earth-bg"></div>
+
+  <!-- ===== MAIN APPLICATION WRAPPER ===== -->
+  <div class="app-wrapper">
+    
+    <!-- HEADER NAVBAR -->
+    <header class="app-header">
+      <div class="logo-box">
+        <i class="fa-solid fa-globe logo-icon"></i>
+        <div>
+          <span class="logo-title">EarthPay</span>
+          <span class="logo-subtitle">Global Banking & Exchange</span>
+        </div>
+      </div>
+      
+      <!-- Profile Chip (Visible when logged in) -->
+      <div id="headerProfileChip" class="profile-chip" style="display: none;" onclick="openProfileModal()">
+        <div class="avatar-circle" id="userAvatar">U</div>
+        <div class="user-chip-info">
+          <span id="chipUsername" class="chip-username">Username</span>
+          <span id="chipBankBadge" class="badge badge-warning">Unlinked</span>
+        </div>
+        <i class="fa-solid fa-chevron-down chip-arrow"></i>
+      </div>
+    </header>
+
+    <!-- ================= AUTH CONTAINER ================= -->
+    <div id="authContainer" class="glass-card auth-card">
+      <div class="auth-header">
+        <i class="fa-solid fa-shield-halved auth-icon"></i>
+        <h2>Secure User Authentication</h2>
+        <p>Access your multi-currency global account</p>
+      </div>
+
+      <!-- Auth Switcher Tabs -->
+      <div class="auth-tabs">
+        <button id="tabBtnLogin" class="auth-tab-btn active" onclick="showLogin()">Login</button>
+        <button id="tabBtnRegister" class="auth-tab-btn" onclick="showRegister()">Register</button>
+      </div>
+
+      <!-- Login Box -->
+      <div id="loginBox" class="auth-form-box">
+        <div class="input-group">
+          <label><i class="fa-solid fa-user"></i> Username</label>
+          <input type="text" id="loginUsername" placeholder="Enter your username" />
+        </div>
+        <div class="input-group">
+          <label><i class="fa-solid fa-lock"></i> Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" />
+        </div>
+        <button class="btn btn-primary btn-block" onclick="loginUser()">
+          <i class="fa-solid fa-right-to-bracket"></i> Login to EarthPay
+        </button>
+        <p id="loginMessage" class="auth-msg"></p>
+      </div>
+
+      <!-- Register Box -->
+      <div id="registerBox" class="auth-form-box" style="display: none;">
+        <div class="input-group">
+          <label><i class="fa-solid fa-user"></i> Username</label>
+          <input type="text" id="regUsername" placeholder="Choose a username" />
+        </div>
+        <div class="input-group">
+          <label><i class="fa-solid fa-envelope"></i> Email Address</label>
+          <input type="email" id="regEmail" placeholder="name@example.com" />
+        </div>
+        <div class="input-group">
+          <label><i class="fa-solid fa-lock"></i> Password</label>
+          <input type="password" id="regPassword" placeholder="Create a strong password" />
+        </div>
+        <button class="btn btn-primary btn-block" onclick="registerUser()">
+          <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+        <p id="regMessage" class="auth-msg"></p>
+      </div>
+    </div>
+
+    <!-- ================= APP CONTAINER ================= -->
+    <div id="appContainer" class="glass-card" style="display: none;">
+      
+      <!-- TOP DASHBOARD BAR -->
+      <div class="dashboard-top-grid">
+        
+        <!-- Balance Card -->
+        <div class="balance-card glass-subcard">
+          <div class="balance-header">
+            <div>
+              <span class="card-label">Linked Bank Balance</span>
+              <h3 id="cardBankName" class="bank-name">No Bank Linked</h3>
+            </div>
+            <span id="bankStatusBadge" class="badge badge-danger">Unlinked</span>
+          </div>
+
+          <div class="balance-body">
+            <div class="balance-amount-box">
+              <span class="currency-symbol" id="balanceCurrencySymbol">$</span>
+              <span id="balanceValue" class="balance-value">••••••••</span>
+            </div>
+            <div class="balance-actions">
+              <button class="btn-icon" onclick="toggleBalanceVisibility()" title="Toggle Balance View">
+                <i id="balanceEyeIcon" class="fa-solid fa-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-outline" onclick="openDepositModal()">
+                <i class="fa-solid fa-plus"></i> Add Funds
+              </button>
+            </div>
+          </div>
+
+          <div class="balance-footer">
+            <span id="cardAccNumber">Acc: ---- ---- ----</span>
+            <button id="linkBankBtn" class="btn btn-xs btn-warning" onclick="openBankModal()">
+              <i class="fa-solid fa-link"></i> Link Account
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Profile & QR Summary Card -->
+        <div class="profile-summary-card glass-subcard">
+          <div class="summary-header">
+            <h4><i class="fa-solid fa-qrcode"></i> Your QR Payment ID</h4>
+            <span class="badge badge-info">Scan & Pay</span>
+          </div>
+          <div class="summary-body">
+            <div class="mini-qr-box">
+              <img id="miniQrImg" src="" alt="User QR Code" />
+            </div>
+            <div class="summary-info">
+              <p>Share your unique QR code with senders for instant transfers.</p>
+              <button class="btn btn-sm btn-secondary" onclick="openProfileModal()">
+                <i class="fa-solid fa-expand"></i> View & Download QR
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MAIN FEATURE SECTION SWITCHER -->
+      <div class="transfer-tabs">
+        <button id="tabManualTx" class="tab-btn active" onclick="switchTransferTab('manual')">
+          <i class="fa-solid fa-money-bill-transfer"></i> Manual Account Transfer
+        </button>
+        <button id="tabQrTx" class="tab-btn" onclick="switchTransferTab('qr')">
+          <i class="fa-solid fa-qrcode"></i> QR Scanner Transfer
+        </button>
+      </div>
+
+      <!-- ===== MANUAL TRANSFER FORM ===== -->
+      <div id="manualTxSection" class="transfer-section">
+        <div class="section-heading">
+          <div class="heading-title">
+            <i class="fa-solid fa-paper-plane"></i> Send Money Internationally & Domestically
+          </div>
+          <div id="transferTypeBadge" class="type-pill pill-national">
+            <i class="fa-solid fa-flag"></i> National (1:1)
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- Amount & Currency Row -->
+          <div class="form-group span-full">
+            <label><i class="fa-solid fa-calculator"></i> Amount to Send</label>
+            <div class="amount-input-wrapper">
+              <input type="number" id="amount" placeholder="0.00" min="1" step="any" oninput="calculateLiveRate()" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>From Currency</label>
+            <select id="fromCurrency" onchange="calculateLiveRate()">
+              <option value="USD">USD - US Dollar ($)</option>
+              <option value="INR">INR - Indian Rupee (₹)</option>
+              <option value="EUR">EUR - Euro (€)</option>
+              <option value="GBP">GBP - British Pound (£)</option>
+              <option value="JPY">JPY - Japanese Yen (¥)</option>
+              <option value="AUD">AUD - Australian Dollar (A$)</option>
+              <option value="CAD">CAD - Canadian Dollar (C$)</option>
+              <option value="RUB">RUB - Russian Ruble (₽)</option>
+              <option value="SAR">SAR - Saudi Riyal (SR)</option>
+              <option value="AED">AED - UAE Dirham (AED)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>To Currency</label>
+            <select id="toCurrency" onchange="calculateLiveRate()">
+              <option value="INR">INR - Indian Rupee (₹)</option>
+              <option value="USD">USD - US Dollar ($)</option>
+              <option value="EUR">EUR - Euro (€)</option>
+              <option value="GBP">GBP - British Pound (£)</option>
+              <option value="JPY">JPY - Japanese Yen (¥)</option>
+              <option value="AUD">AUD - Australian Dollar (A$)</option>
+              <option value="CAD">CAD - Canadian Dollar (C$)</option>
+              <option value="RUB">RUB - Russian Ruble (₽)</option>
+              <option value="SAR">SAR - Saudi Riyal (SR)</option>
+              <option value="AED">AED - UAE Dirham (AED)</option>
+            </select>
+          </div>
+
+          <!-- Live Conversion Preview Pill -->
+          <div class="span-full">
+            <div id="liveRateBox" class="live-rate-card">
+              <i class="fa-solid fa-circle-info"></i> Enter an amount to preview exchange rate & calculation.
+            </div>
+          </div>
+
+          <!-- RECEIVER DETAILS SECTION -->
+          <div class="section-title span-full">
+            <i class="fa-solid fa-user-check"></i> Receiver Details (Validation Required)
+          </div>
+
+          <div class="form-group">
+            <label>Receiver Full Name *</label>
+            <input type="text" id="receiverName" placeholder="e.g. John Doe" />
+          </div>
+
+          <div class="form-group">
+            <label>Bank Account Number *</label>
+            <input type="text" id="receiverAccount" placeholder="e.g. 987654321012" />
+          </div>
+
+          <div class="form-group">
+            <label>Bank Name *</label>
+            <input type="text" id="receiverBank" placeholder="e.g. Chase Bank / HDFC Bank" />
+          </div>
+
+          <div class="form-group">
+            <label>Receiver Country *</label>
+            <div class="country-box">
+              <span id="countryFlag">🇮🇳</span>
+              <select id="receiverCountry" onchange="updateFlag()">
+                <option value="India" data-flag="🇮🇳">India</option>
+                <option value="USA" data-flag="🇺🇸">USA</option>
+                <option value="UK" data-flag="🇬🇧">United Kingdom</option>
+                <option value="Japan" data-flag="🇯🇵">Japan</option>
+                <option value="Europe" data-flag="🇪🇺">Europe</option>
+                <option value="Australia" data-flag="🇦🇺">Australia</option>
+                <option value="Canada" data-flag="🇨🇦">Canada</option>
+                <option value="Russia" data-flag="🇷🇺">Russia</option>
+                <option value="Saudi Arabia" data-flag="🇸🇦">Saudi Arabia</option>
+                <option value="UAE" data-flag="🇦🇪">United Arab Emirates</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Receiver Email *</label>
+            <input type="email" id="receiverEmail" placeholder="receiver@example.com" />
+          </div>
+
+          <div class="form-group">
+            <label>Receiver Phone Number *</label>
+            <input type="text" id="receiverPhone" placeholder="10-digit phone number" />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button id="payBtn" class="btn btn-action btn-block" onclick="convertCurrency()">
+          <i class="fa-solid fa-credit-card"></i> Proceed & Transfer Funds
+        </button>
+      </div>
+
+      <!-- ===== QR SCANNER SIMULATION SECTION ===== -->
+      <div id="qrTxSection" class="transfer-section" style="display: none;">
+        <div class="section-heading">
+          <div class="heading-title">
+            <i class="fa-solid fa-camera"></i> QR Code Payment Simulation
+          </div>
+        </div>
+
+        <div class="qr-scanner-grid">
+          <!-- Viewfinder animation -->
+          <div class="qr-viewfinder">
+            <div class="scanner-laser"></div>
+            <i class="fa-solid fa-qrcode qr-center-icon"></i>
+            <p>Point camera at user QR code</p>
+          </div>
+
+          <!-- Simulation Preset Controls -->
+          <div class="qr-controls glass-subcard">
+            <h4><i class="fa-solid fa-vial"></i> Instant Demo Receivers</h4>
+            <p class="subtext">Select a sample user to simulate scanning their QR payload:</p>
+            
+            <div class="preset-buttons">
+              <button class="btn btn-sm btn-outline" onclick="simulateQrScan('Apex Global', '88493029104', 'Apex Bank', 'USA', 'apex@global.com', '9876543210')">
+                <i class="fa-solid fa-qrcode"></i> Scan Alex (Apex Bank - USA)
+              </button>
+              <button class="btn btn-sm btn-outline" onclick="simulateQrScan('Priya Sharma', '55219483019', 'State Bank', 'India', 'priya@bank.in', '9812345678')">
+                <i class="fa-solid fa-qrcode"></i> Scan Priya (SBI - India)
+              </button>
+              <button class="btn btn-sm btn-outline" onclick="simulateQrScan('Hans Mueller', '11029384756', 'Deutsche Direct', 'Europe', 'hans@direct.de', '9988776655')">
+                <i class="fa-solid fa-qrcode"></i> Scan Hans (Deutsche - Europe)
+              </button>
+            </div>
+
+            <div class="custom-qr-input">
+              <label>Or Paste Raw QR Code Data / JSON:</label>
+              <textarea id="rawQrInput" rows="3" placeholder='{"name":"John","account":"123456","bank":"City Bank","country":"USA"}'></textarea>
+              <button class="btn btn-sm btn-secondary" onclick="parseRawQr()">
+                <i class="fa-solid fa-magnifying-glass"></i> Decode Payload
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result Banner / Output -->
+      <div id="result"></div>
+
+      <hr class="divider" />
+
+      <!-- ================= TRANSACTION HISTORY & FILTERS ================= -->
+      <div class="history-section">
+        <div class="history-header">
+          <h3><i class="fa-solid fa-receipt"></i> Transaction History & Statement</h3>
+          <button class="btn btn-sm btn-success" onclick="downloadStatementCSV()">
+            <i class="fa-solid fa-file-csv"></i> Download Statement (.CSV)
+          </button>
+        </div>
+
+        <!-- Filter Controls Bar -->
+        <div class="filter-panel glass-subcard">
+          <div class="filter-grid">
+            
+            <!-- Search -->
+            <div class="filter-group span-2">
+              <label><i class="fa-solid fa-magnifying-glass"></i> Search Transactions</label>
+              <input type="text" id="filterSearch" placeholder="Search by receiver name or bank..." oninput="applyFilters()" />
+            </div>
+
+            <!-- Date Range Radio Selection -->
+            <div class="filter-group span-2">
+              <label><i class="fa-solid fa-calendar"></i> Date Range</label>
+              <div class="radio-flex">
+                <label><input type="radio" name="range" value="all" checked onchange="handleRangeChange(this)"> All Time</label>
+                <label><input type="radio" name="range" value="30" onchange="handleRangeChange(this)"> 30 Days</label>
+                <label><input type="radio" name="range" value="90" onchange="handleRangeChange(this)"> 90 Days</label>
+                <label><input type="radio" name="range" value="365" onchange="handleRangeChange(this)"> 1 Year</label>
+                <label><input type="radio" name="range" value="custom" id="customRange" onchange="handleRangeChange(this)"> Custom</label>
+              </div>
+              <div id="customDates" class="custom-date-picker" style="display: none;">
+                <span>From:</span> <input type="date" id="startDate" onchange="applyFilters()" />
+                <span>To:</span> <input type="date" id="endDate" onchange="applyFilters()" />
+              </div>
+            </div>
+
+            <!-- Type Filter Checkboxes -->
+            <div class="filter-group">
+              <label><i class="fa-solid fa-list-check"></i> Transfer Type</label>
+              <div class="checkbox-flex">
+                <label><input type="checkbox" id="national" onchange="applyFilters()"> National</label>
+                <label><input type="checkbox" id="international" onchange="applyFilters()"> International</label>
+              </div>
+            </div>
+
+            <!-- Status Filter Checkboxes -->
+            <div class="filter-group">
+              <label><i class="fa-solid fa-circle-notch"></i> Status</label>
+              <div class="checkbox-flex">
+                <label><input type="checkbox" id="success" onchange="applyFilters()"> Successful</label>
+                <label><input type="checkbox" id="failed" onchange="applyFilters()"> Failed</label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="filter-actions">
+            <button class="btn btn-xs btn-outline" onclick="resetFilters()">
+              <i class="fa-solid fa-rotate-left"></i> Reset Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Transaction List Container -->
+        <div id="txList" class="tx-list-container">
+          <!-- Cards dynamically populated -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= BANK LINKING MODAL ================= -->
+  <div id="bankModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-building-columns"></i> Link Bank Account</h3>
+        <button class="close-modal-btn" onclick="closeBankModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-notice"><i class="fa-solid fa-triangle-exclamation"></i> Mandatory: Link your bank account before initiating any transactions.</p>
+
+        <div class="form-group">
+          <label>Bank Name *</label>
+          <input type="text" id="linkBankName" placeholder="e.g. JPMorgan Chase / HDFC Bank" />
+        </div>
+
+        <div class="form-group">
+          <label>Account Number (8 - 18 digits) *</label>
+          <input type="text" id="linkAccNumber" placeholder="e.g. 123456789012" />
+        </div>
+
+        <div class="form-group">
+          <label>IFSC / SWIFT Code *</label>
+          <input type="text" id="linkIfsc" placeholder="e.g. CHASUS33 / HDFC0001234" />
+        </div>
+
+        <div class="form-group">
+          <label>Account Base Currency *</label>
+          <select id="linkCurrency">
+            <option value="USD">USD ($)</option>
+            <option value="INR">INR (₹)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Initial Account Balance *</label>
+          <input type="number" id="linkInitialBalance" value="10000" placeholder="10000" min="100" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeBankModal()">Cancel</button>
+        <button class="btn btn-success" onclick="saveBankLinking()">Save & Link Bank</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ADD FUNDS / DEPOSIT MODAL ================= -->
+  <div id="depositModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-wallet"></i> Deposit / Add Funds</h3>
+        <button class="close-modal-btn" onclick="closeDepositModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Amount to Deposit</label>
+          <input type="number" id="depositAmount" placeholder="Enter amount" min="1" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeDepositModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitDeposit()">Confirm Deposit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PROFILE & QR MODAL ================= -->
+  <div id="profileModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content glass-card profile-modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-id-card"></i> User Profile & Digital QR</h3>
+        <button class="close-modal-btn" onclick="closeProfileModal()">&times;</button>
+      </div>
+      <div class="modal-body profile-modal-body">
+        <div class="profile-details">
+          <div class="profile-avatar-large" id="modalUserAvatar">U</div>
+          <h2 id="modalUsername">Username</h2>
+          <p id="modalEmail" class="subtext">user@example.com</p>
+
+          <div class="bank-details-box glass-subcard">
+            <h4><i class="fa-solid fa-university"></i> Linked Bank Details</h4>
+            <div id="modalBankDetails">
+              <!-- Linked bank info rendered here -->
+            </div>
+          </div>
+        </div>
+
+        <div class="qr-display-box glass-subcard">
+          <h4>Your QR Code Payload</h4>
+          <img id="fullQrImg" src="" alt="Full QR Code" />
+          <p class="subtext">Scanners parse this QR to auto-populate transfer details.</p>
+          <a id="qrDownloadBtn" class="btn btn-sm btn-primary" download="My_EarthPay_QR.png" target="_blank">
+            <i class="fa-solid fa-download"></i> Download QR Image
+          </a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" onclick="logoutUser()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+        </button>
+        <button class="btn btn-secondary" onclick="closeProfileModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= RECEIPT MODAL ================= -->
+  <div id="receiptModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content glass-card receipt-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-receipt"></i> Transaction Receipt</h3>
+        <button class="close-modal-btn" onclick="closeReceiptModal()">&times;</button>
+      </div>
+      <div id="receiptBody" class="modal-body">
+        <!-- Receipt details populated dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Receipt</button>
+        <button class="btn btn-secondary" onclick="closeReceiptModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
